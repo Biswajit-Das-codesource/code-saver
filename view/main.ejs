@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Function to copy code content
+      function copyToClipboard(elementId) {
+        const codeBlock = document.getElementById(elementId);
+        const codeText = codeBlock.innerText;
+
+        // Copy the code to the clipboard
+        navigator.clipboard
+          .writeText(codeText)
+          .then(() => {
+            alert("Code copied to clipboard!");
+          })
+          .catch((err) => {
+            console.error("Failed to copy: ", err);
+          });
+      }
+    </script>
+  </head>
+  <body class="bg-black text-white font-sans">
+    <!-- Navbar -->
+    <nav
+      class="bg-black p-4 flex items-center justify-between border-b border-gray-700"
+    >
+      <div class="text-lg font-bold">Code/Saver</div>
+      <!-- <input
+        type="text"
+        placeholder="Search documentation..."
+        class="hidden md:block bg-[#1f1f1f] text-gray-300 px-3 py-2 rounded-md w-1/4"
+      /> -->
+      <!-- <div class="flex items-center gap-4">
+        <button class="p-2 rounded hover:bg-[#1f1f1f]">🔍</button>
+        <button class="p-2 rounded hover:bg-[#1f1f1f]">⚙</button>
+      </div> -->
+      <a href="/profile">Profile</a>
+    </nav>
+
+    <!-- Layout -->
+    <div class="flex flex-col md:flex-row">
+      <!-- Sidebar -->
+      <aside
+        class="w-full md:w-1/5 bg-[#121212] h-auto md:h-screen border-b md:border-r border-gray-700 p-4"
+      >
+        <div class="mt-6 p-4 bg-[#1f1f1f] rounded-lg">
+          <h4 class="text-white font-semibold mb-2">Deploy Your Code</h4>
+          <p class="text-gray-400 text-sm mb-4">
+            Create your code and save it for your future use. Easy to solve and
+            find any problem.
+          </p>
+          <button
+            class="bg-white text-black font-semibold px-4 py-2 rounded hover:bg-gray-300"
+          >
+            <a href="/code">Deploy Now</a>
+          </button>
+        </div>
+        <div class="mt-6 p-4 bg-[#1f1f1f] rounded-lg">
+          <h4 class="text-white font-semibold mb-2">
+            Save Your Code (Privately)
+          </h4>
+          <p class="text-gray-400 text-sm mb-4">
+            Create your code and save it for your future use. Easy to solve and
+            find any problem.
+          </p>
+          <button
+            class="bg-white text-black font-semibold px-4 py-2 rounded hover:bg-gray-300"
+          >
+            <a href="/owncode">Deploy Now</a>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main
+        class="flex-1 p-4 md:p-8 overflow-scroll h-[90vh] overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mt-2"
+      >
+        <h1 class="text-white text-center text-4xl p-4"></h1>
+
+        <% if (locals.alldata) { %> 
+        <% if (alldata == "") { %>
+          <p class="text-white text-center text-lg">No posts available.</p>
+        <% } %> 
+        <% alldata.forEach((element, index) => { %>
+          <div
+            class="bg-[#1f1f1f] border border-gray-700 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6"
+          >
+            <!-- Post Title and View Profile Button -->
+            <div class="flex items-center justify-between mb-2">
+              <h1 class="text-xl text-white break-words">
+                <span>Name:</span> <%= element.name %>
+              </h1>
+              <a
+                href="profileview/<%= element._id %>"
+                class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm font-semibold shadow-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400"
+              >
+                View Profile
+              </a>
+            </div>
+
+            <!-- Language -->
+            <p class="text-lg text-gray-300 mb-2 break-words">
+              <span>Language:</span> <%= element.language %>
+            </p>
+
+            <!-- Post Subtitle -->
+            <p class="text-lg text-gray-200 mb-4 break-words">
+              <span>Description:</span> <%= element.title %>
+            </p>
+
+            <!-- Post Code -->
+            <span class="text-lg text-white">Code:</span>
+            <div class="relative">
+              <pre
+                id="codeBlock<%= index %>"
+                class="text-sm bg-black text-gray-300 p-4 rounded-lg overflow-auto break-all border border-gray-700"
+              >
+                <%= element.code %>
+              </pre>
+              <!-- Copy Button -->
+              <button
+                onclick="copyToClipboard('codeBlock<%= index %>')"
+                class="absolute top-2 right-2 bg-gray-800 text-gray-300 text-sm px-3 py-1 rounded-md shadow-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+
+            <!-- Post Creation Time -->
+            <p class="text-sm  text-gray-100 mt-4">
+              Posted on: <%= new Date(element.createdAt).toLocaleString() %>
+            </p>
+
+            <!-- Comment Button -->
+            <div class="mt-4 flex justify-center">
+              <a
+                href="/comments/<%= element._id %>"
+                class="bg-black text-white px-6 py-2 rounded-md text-sm font-semibold shadow-md hover:bg-gray-800 focus:ring-2 focus:ring-gray-600"
+              >
+                Give Comments
+              </a>
+            </div>
+          </div>
+        <% }) %> 
+        <% } %>
+      </main>
+
+      <!-- Right Sidebar -->
+      <aside
+        class="w-full md:w-1/5 bg-[#121212] h-auto md:h-screen border-t md:border-l border-gray-700 p-4"
+      >
+        <h3 class="text-lg font-semibold mb-2">On This Page</h3>
+        <ul class="space-y-1 text-gray-300">
+          <li>Public Codes</li>
+          <li>See</li>
+          <li>Changelog</li>
+        </ul>
+        <div class="mt-6 p-4 bg-[#1f1f1f] rounded-lg">
+          <h4 class="text-white font-semibold mb-2">
+            Bring your app built with shadcn to life on Vercel
+          </h4>
+          <p class="text-gray-400 text-sm mb-4">
+            Trusted by OpenAI, Sonos, Chick-fil-A, and more. Vercel provides
+            tools and infrastructure to deploy apps and features at scale.
+          </p>
+          <button
+            class="bg-white text-black font-semibold px-4 py-2 rounded hover:bg-gray-300"
+          >
+            Deploy Now
+          </button>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>

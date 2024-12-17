@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white font-sans">
+
+    <!-- Layout -->
+    <div class="flex flex-col md:flex-row">
+        <!-- Left side (Code Block) - smaller size -->
+        <main class="flex-1 p-4 md:p-8 h-[90vh] mt-2 md:w-2/5">
+            <h1 class="text-white text-center text-4xl p-4">Code Details</h1>
+
+            <% if (locals.alldata) { %>
+            <div
+                class="bg-[#1f1f1f] border border-gray-700 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6">
+                <span class="text-lg text-white">Code:</span>
+                <div class="relative">
+                    <pre
+                        class="text-sm bg-black text-gray-300 p-4 rounded-lg overflow-auto break-all border border-gray-700">
+                        <%= alldata.code %>
+                    </pre>
+                </div>
+            </div>
+            <% } %>
+        </main>
+
+        <!-- Right side (Comments Section) - larger size -->
+        <div class="w-full md:w-3/5 p-4 md:p-8 bg-[#1f1f1f]">
+            <h2 class="text-2xl text-white mb-4">Add a Comment</h2>
+
+            <!-- Comment Form -->
+            <form method="post" action="/comment/<%= alldata._id %>" class="flex flex-col space-y-4">
+                <label for="comment" class="text-white text-lg">Add your comment:</label>
+                <input type="text" name="comment" id="comment"
+                    class="bg-[#1f1f1f] text-white border border-gray-700 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    placeholder="Write a comment..." required>
+                <button type="submit"
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 focus:ring-2 focus:ring-blue-400">Submit</button>
+            </form>
+
+            <h2 class="text-2xl text-white mt-6">Comments</h2>
+
+            <!-- Display Comments -->
+            <div class="mt-4 space-y-4">
+                <% if (locals.comment) { %>
+                    <% comment.forEach(element => { %>
+                    <div
+                        class="bg-[#1f1f1f] border border-gray-700 rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center mb-2">
+                            <!-- User Avatar -->
+                            <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="User Avatar"
+                                class="w-10 h-10 rounded-full mr-3 border border-gray-600" />
+                            <!-- User Info -->
+                            <div>
+                                <p class="text-white font-semibold text-md"><%= element.createdBy.username %></p>
+                                <p class="text-gray-400 text-sm">
+                                    <%= new Date(element.createdBy.createdAt).toLocaleString() %>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Comment Content -->
+                        <p class="text-white text-lg"><%= element.comment %></p>
+                    </div>
+                    <% }) %>
+                <% } else { %>
+                <p class="text-white text-lg">No comments yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

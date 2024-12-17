@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spectrum UI</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      /* General Styles */
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+      }
+
+      /* Navbar Styles */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px;
+        background: rgba(20, 20, 20, 0.9);
+        border-bottom: 1px solid #444;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.3s;
+        font-weight: 700;
+      }
+
+      .nav-links a:hover {
+        color: #00e6e6;
+      }
+
+      .cta-btn {
+        padding: 8px 15px;
+        background-color: #00e6e6;
+        color: #000;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .cta-btn:hover {
+        background-color: #00cccc;
+      }
+
+      /* Responsive Hamburger Menu */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        background-color: #fff;
+        height: 3px;
+        width: 25px;
+        margin: 3px 0;
+        display: block;
+        transition: all 0.3s;
+      }
+
+      .container {
+        height: 88vh;
+        width: 100%;
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .container h1 {
+        font-size: 3.6rem;
+        margin-top: 2rem;
+        height: max-content;
+      }
+
+      .highlight {
+        font-size: 3rem;
+        margin-top: 1rem;
+      }
+
+      .intro {
+        font-size: 1rem;
+        margin-top: 2rem;
+        border: #70cc00 solid;
+        border-radius: 1rem;
+        padding: 0.5rem;
+      }
+      .sub {
+        font-size: 1.1rem;
+        margin-top: 2rem;
+      }
+
+      .logos {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      i {
+        font-size: 3rem;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background-color: #222;
+          border-top: 1px solid #444;
+          text-align: center;
+          z-index: 1000;
+        }
+
+        .container h1 {
+          font-size: 2rem;
+        }
+        .highlight {
+          font-size: 1rem;
+        }
+        .intro {
+          font-size: 0.7rem;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+      }
+
+      /* Page Reload Animations */
+
+      /* Fade-In Animation for Container */
+      .container {
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Slide-In Animation for Heading */
+      .container h1 {
+        animation: slideIn 1s ease-in-out;
+      }
+
+      /* @keyframes slideIn {
+        0% {
+          transform: translateY();
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      } */
+
+      /* Scale Animation for Logos */
+      .logos i {
+        animation: scaleUp 1.2s ease-out;
+      }
+
+      @keyframes scaleUp {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Button Bounce Animation */
+      button {
+        animation: bounceIn 1.5s ease-out;
+      }
+
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      a{
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">Code / saver</div>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#pricing">Codes</a>
+        <a href="#contact">Public Codes</a>
+        <a href="signuppage">Signup</a>
+        <a href="loginpage">Login</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <span class="intro">🚀 Introducing CodeSaver</span>
+      <h1>
+        Instant Code <br /><span class="highlight"
+          >Just Copy, Paste & Done</span
+        >
+      </h1>
+      <p class="sub">
+        Save your Java, Python, JavaScript, C, C++ Codes Easily Accelerate
+        <br />
+        your Knowledge growth save time and elevate quality ⭐
+      </p>
+
+      <h2 style="margin-top: 2.3rem">Work with</h2>
+      <div class="logos">
+        <i class="fa-brands fa-python"></i>
+        <i class="fa-brands fa-java"></i>
+        <i class="fa-brands fa-js"></i>
+        <i class="fa-solid fa-c"></i>
+      </div>
+      <button
+        style="
+          padding: 0.7rem 1.5rem;
+          margin-top: 2rem;
+          border-radius: 1rem;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+        "
+      >
+     <a href="/home">  Explore Code.Saver✨</a>
+      </button>
+    </div>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Profile Card</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center">
+  <div class="max-w-3xl bg-zinc-950 text-white shadow-lg rounded-lg p-6">
+    <!-- Profile Header -->
+    <div class="flex items-center">
+      <!-- Profile Picture -->
+      <img
+        src="https://via.placeholder.com/150"
+        alt="Profile Picture"
+        class="w-24 h-24 rounded-full border-2 border-gray-700"
+      />
+      <!-- Profile Details -->
+
+      <% if (locals.alldata) { %>
+        
+      <div class="ml-4">
+        <h1 class="text-2xl font-bold text-white"><%= alldata.createdBy.username %></h1>
+        <p class="text-gray-400">Web Developer | Open Source Contributor</p>
+        <p class="text-gray-500 text-sm">
+        College : <%= alldata.createdBy.collegeName %>
+        </p>
+        <div class="mt-2">
+          <a
+            href="#"
+            class="text-blue-500 hover:underline text-sm"
+            target="_blank"
+          >@johndoe</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    
+   
+    <% } %>
+    <!-- Repositories Section -->
+    <div class="mt-8">
+      <h2 class="text-lg font-bold text-white mb-4">Pinned Repositories</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Repository 1 -->
+        <div class="border rounded-lg p-4 bg-neutral-800">
+          <h3 class="text-white font-semibold">E-commerce Website</h3>
+          <p class="text-gray-400 text-sm">
+            A full-stack e-commerce platform with React and Node.js.
+          </p>
+          <div class="mt-2 text-gray-500 text-sm">
+            <span class="mr-4">★ 120</span>
+            <span>Forks: 30</span>
+          </div>
+        </div>
+        <!-- Repository 2 -->
+        <div class="border rounded-lg p-4 bg-neutral-800">
+          <h3 class="text-white font-semibold">Portfolio Website</h3>
+          <p class="text-gray-400 text-sm">
+            A personal portfolio built with HTML, CSS, and JavaScript.
+          </p>
+          <div class="mt-2 text-gray-500 text-sm">
+            <span class="mr-4">★ 90</span>
+            <span>Forks: 15</span>
+          </div>
+        </div>
+        <!-- Repository 3 -->
+        <div class="border rounded-lg p-4 bg-neutral-800">
+          <h3 class="text-white font-semibold">Open Source Blog Platform</h3>
+          <p class="text-gray-400 text-sm">
+            A blogging platform built with Next.js and MongoDB.
+          </p>
+          <div class="mt-2 text-gray-500 text-sm">
+            <span class="mr-4">★ 75</span>
+            <span>Forks: 10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
