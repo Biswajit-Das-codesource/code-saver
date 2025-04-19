@@ -16,10 +16,14 @@ port=process.env.port ||8000
 
 require('dotenv').config();
 
-const mongourl=process.env.MONGO_URI || "mongodb+srv://biswajit9348das:biswajit123@code.kapvc.mongodb.net/"
+const mongourl="mongodb://localhost:27017/testing"
+
+
+// process.env.MONGO_URI || "mongodb+srv://biswajit9348das:biswajit123@code.kapvc.mongodb.net/"
+
 
 mongoose
-  .connect(mongourl)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("mongodb connected"))
   .catch(() => console.log("error"));
 app.get("/",(req,res)=>{
